@@ -172,10 +172,11 @@ func unmarshallConfigReader(in io.Reader, c map[string]interface{}, configType s
 		if err != nil {
 			return ConfigParseError{err}
 		}
-		spew.Dump(obj) // HACKHACK: Figure out why we arent decoding properly.
+		
 		if err = hcl.DecodeObject(&c, obj); err != nil {
 			return ConfigParseError{err}
 		}
+		spew.Dump(c) // HACKHACK: Figure out why we arent decoding properly.
 
 	case "toml":
 		tree, err := toml.LoadReader(buf)
