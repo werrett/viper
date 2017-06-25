@@ -20,7 +20,7 @@ import (
 	"runtime"
 	"strings"
 	"unicode"
-
+        "github.com/davecgh/go-spew/spew"
 	"github.com/hashicorp/hcl"
 	"github.com/magiconair/properties"
 	toml "github.com/pelletier/go-toml"
@@ -172,6 +172,7 @@ func unmarshallConfigReader(in io.Reader, c map[string]interface{}, configType s
 		if err != nil {
 			return ConfigParseError{err}
 		}
+		spew.Dump(obj) // HACKHACK: Figure out why we arent decoding properly.
 		if err = hcl.DecodeObject(&c, obj); err != nil {
 			return ConfigParseError{err}
 		}
